@@ -21,9 +21,8 @@ public class ChainBulletType extends BulletType{
 	
 	public int boltNum = 2;
 	
-	protected static Seq<Position> points = new Seq<>();
-
 	protected final IntSeq tmpSeqU = new IntSeq(maxHit), tmpSeqB = new IntSeq(maxHit);
+	protected static final Seq<Position> points = new Seq<>();
 	protected static final Vec2 tmpVec = new Vec2();
 	
 	@Override
@@ -52,8 +51,8 @@ public class ChainBulletType extends BulletType{
 			Vars.indexer.eachBlock(null, confirm.getX(), confirm.getY(), chainRange, t -> t.team != b.team, points::add);
 		}
 		
-		points = points.shuffle();
-		points = points.truncate(maxHit);
+		points.shuffle();
+		points.truncate(maxHit);
 		points.sort(e -> - confirm.dst(e) + confirm.angleTo(e) / 32f);
 		points.insert(0, b);
 		points.insert(1, target);
